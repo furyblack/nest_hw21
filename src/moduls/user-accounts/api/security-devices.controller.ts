@@ -47,7 +47,6 @@ export class SecurityDevicesController {
       user.userId,
       payload.deviceId,
     );
-    // Возвращаем 204 без тела
   }
 
   @Delete('devices/:deviceId')
