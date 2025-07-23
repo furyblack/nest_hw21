@@ -18,9 +18,10 @@ import { BloggersPlatformModule } from './moduls/blog-platform/bloggers-platform
       username: 'postgres',
       password: '3991',
       database: 'blogger_platform',
-      autoLoadEntities: false,
-      synchronize: false,
+      autoLoadEntities: true,
+      synchronize: true,
     }),
+
     UserAccountsModule,
     TestingModule,
     BloggersPlatformModule,

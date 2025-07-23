@@ -11,9 +11,13 @@ import { AuthQueryRepository } from './infrastructure/query/auth.query-repositor
 import { JwtStrategy } from './guards/bearer/jwt.strategy';
 import { SessionService } from './application/session.service';
 import { SecurityDevicesController } from './api/security-devices.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { User } from './domain/user.entity';
+import { Session } from './domain/session.entity';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([User, Session]),
     JwtModule.register({
       secret: 'REFRESH_SECRET', // TODO return process.env.JWT_SECRET ||
       signOptions: { expiresIn: '20s' }, // Базовые настройки
