@@ -20,7 +20,7 @@ import { BloggersPlatformModule } from './moduls/blog-platform/bloggers-platform
       database: 'blogger_platform',
       autoLoadEntities: true,
       synchronize: true,
-      logging: true,
+      logging: false,
     }),
 
     UserAccountsModule,

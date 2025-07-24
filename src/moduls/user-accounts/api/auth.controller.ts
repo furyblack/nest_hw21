@@ -62,8 +62,8 @@ export class AuthController {
   }
 
   @Post('registration-email-resending')
-  @HttpCode(HttpStatus.NO_CONTENT)
   @UseGuards(ThrottlerGuard)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async emailResending(@Body() dto: PasswordRecoveryDto): Promise<void> {
     await this.authService.emailResending(dto.email);
   }
