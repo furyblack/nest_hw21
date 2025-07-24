@@ -1,22 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../domain/user.entity';
 
 @Injectable()
 export class AuthRepository {
-  constructor(private dataSource: DataSource) {}
+  constructor(
+    @InjectRepository(User)
+    private userRepo: Repository<User>,
+  ) {}
 
-  async createUser(data: any) {
-    const result = await this.dataSource.query(
-      `INSERT INTO users (login, email, password_hash, confirmation_code, is_email_confirmed, created_at)
-       VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *`,
-      [
-        data.login,
-        data.email,
-        data.password_hash,
-        data.confirmationCode,
-        data.isEmailConfirmed,
-      ],
-    );
-    return result[0];
+  async createUser(data: {
+    login: string;
+    email: string;
+    passwordHash: string;
+    confirmationCode: string;
+    isEmailConfirmed: boolean;
+  }): Promise<User> {
+    const user = this.userRepo.create({
+      login: data.login,
+      email: data.email,
+      passwordHash: data.passwordHash,
+      confirmationCode: data.confirmationCode,
+      isEmailConfirmed: data.isEmailConfirmed,
+    });
+    return this.userRepo.save(user);
   }
 }

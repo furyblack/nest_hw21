@@ -28,10 +28,10 @@ export class User {
   email: string;
 
   @Column()
-  password_hash: string;
+  passwordHash: string;
 
-  @Column({ default: false })
-  is_email_confirmed: boolean;
+  @Column({ name: 'is_email_confirmed', default: false })
+  isEmailConfirmed: boolean;
 
   /** 🔗 User → Blogs */
   @OneToMany(() => Blog, (blog) => blog.owner)
@@ -50,21 +50,26 @@ export class User {
   sessions: Session[];
 
   @Column({
+    name: 'deletion_status',
     type: 'enum',
     enum: DeletionStatus,
     default: DeletionStatus.ACTIVE,
   })
   deletionStatus: DeletionStatus;
 
-  @Column({ nullable: true })
-  confirmation_code: string | null;
+  @Column({ name: 'confirmation_code', nullable: true })
+  confirmationCode: string | null;
 
-  @Column({ type: 'timestamptz', nullable: true })
-  confirmation_code_expiration: Date | null;
+  @Column({
+    name: 'confirmation_code_expiration',
+    type: 'timestamptz',
+    nullable: true,
+  })
+  confirmationCodeExpiration: Date | null;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 }

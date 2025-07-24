@@ -71,8 +71,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   async me(@ExtractUserFromRequest() user: UserContextDto): Promise<MeViewDto> {
-    const currentUser = await this.authQueryRepo.me(user.userId);
-    return currentUser;
+    return await this.authQueryRepo.me(user.userId);
   }
   @Post('refresh-token')
   @HttpCode(HttpStatus.OK)

@@ -32,16 +32,16 @@ export class UsersService {
     const user = await this.usersRepository.createUser({
       login: dto.login,
       email: dto.email,
-      password_hash: passwordHash,
-      confirmation_code: uuidv4(),
-      is_email_confirmed: false,
+      passwordHash: passwordHash,
+      confirmationCode: uuidv4(),
+      isEmailConfirmed: false,
     });
 
     return {
       id: user.id,
       login: user.login,
       email: user.email,
-      createdAt: user.created_at,
+      createdAt: user.createdAt,
     };
   }
 

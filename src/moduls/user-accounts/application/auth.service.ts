@@ -39,13 +39,13 @@ export class AuthService {
       });
     }
 
-    const password_hash = await bcrypt.hash(dto.password, 10);
+    const passwordHash = await bcrypt.hash(dto.password, 10);
     const confirmationCode = uuidv4();
 
     const user = await this.authRepository.createUser({
       login: dto.login,
       email: dto.email,
-      password_hash,
+      passwordHash,
       confirmationCode,
       isEmailConfirmed: false,
     });
@@ -81,11 +81,11 @@ export class AuthService {
       dto.loginOrEmail,
     );
     console.log(user, 'user from login');
-    if (!user || user.deletion_status !== 'active') {
+    if (!user || user.deletionStatus !== 'active') {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isMatch = await bcrypt.compare(dto.password, user.password_hash);
+    const isMatch = await bcrypt.compare(dto.password, user.passwordHash);
     if (!isMatch) {
       throw new UnauthorizedException('Invalid credentials');
     }
