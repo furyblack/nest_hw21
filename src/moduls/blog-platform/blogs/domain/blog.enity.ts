@@ -31,7 +31,7 @@ export class Blog {
   @JoinColumn({ name: 'user_id' })
   owner: User;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', nullable: true })
   user_id: string;
 
   /** 🔗 Blog → Posts */

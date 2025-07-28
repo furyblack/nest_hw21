@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import { BlogsService } from '../application/blogs.service';
 import { CreateBlogDto, UpdateBlogDto } from '../dto/create-blog.dto';
-import { BlogResponseDto } from '../dto/blog-view.dto';
 import { BasicAuthGuard } from '../../../user-accounts/guards/basic/basic-auth.guard';
 import { GetBlogsQueryDto } from '../dto/getBlogsQueryDto';
 import { BlogsRepository } from '../infrastructure/blogs.repository';
@@ -36,10 +35,8 @@ export class BlogsSaController {
 
   @Post()
   @HttpCode(201)
-  async createBlog(
-    @Body() createBlogDto: CreateBlogDto,
-  ): Promise<BlogResponseDto> {
-    return await this.blogsService.createBlog(createBlogDto);
+  async createBlog(@Body() dto: CreateBlogDto) {
+    return await this.blogsService.createBlog(dto);
   }
   @Get()
   @HttpCode(HttpStatus.OK)
@@ -48,7 +45,6 @@ export class BlogsSaController {
   }
 
   @Put(':id')
-  @UseGuards(BasicAuthGuard)
   @HttpCode(HttpStatus.NO_CONTENT)
   async updateBlog(
     @Param('id') id: string,

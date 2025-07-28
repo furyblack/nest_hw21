@@ -20,7 +20,7 @@ export class PostsService {
     blogId: string,
     dto: CreatePostDto,
   ): Promise<PostViewDto> {
-    const blog = await this.blogsRepo.findById(blogId);
+    const blog = await this.blogsRepo.findBlogById(blogId);
     if (!blog) throw new NotFoundException();
 
     const post = await this.postsRepo.create({
